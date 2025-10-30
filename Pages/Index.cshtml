@@ -1,0 +1,55 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Joke Generator";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Name - Ashish Tadvi <br> 
+    enrollment numbaer - 202303103510316 <br> 
+    class - 5 B <br> </h1>
+    <p>Click the button to get a random joke using a .NET Minimal API.</p>
+    
+    <button id="get-joke-btn" class="btn btn-success btn-lg">Generate New Joke</button>
+    
+    <hr />
+    
+    <blockquote class="mt-4">
+        <h3 id="joke-setup">Your joke setup will appear here...</h3>
+        <p class="lead text-primary" id="joke-punchline">
+            ...and the punchline here.
+        </p>
+    </blockquote>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const getJokeButton = document.getElementById("get-joke-btn");
+            const jokeSetup = document.getElementById("joke-setup");
+            const jokePunchline = document.getElementById("joke-punchline");
+
+            getJokeButton.addEventListener("click", async () => {
+                
+                // Show loading message
+                jokeSetup.innerText = "Thinking...";
+                jokePunchline.innerText = ""; 
+
+                try {
+                    // Call the .NET endpoint
+                    const response = await fetch("/getjoke");
+                    const data = await response.json(); 
+                    
+                    // Display the joke parts using the JSON fields
+                    jokeSetup.innerText = data.setup; 
+                    jokePunchline.innerText = data.punchline;
+
+                } catch (error) {
+                    console.error("Error fetching joke:", error);
+                    jokeSetup.innerText = "Oops! Could not get a joke.";
+                    jokePunchline.innerText = "";
+                }
+            });
+        });
+    </script>
+}
