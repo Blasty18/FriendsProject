@@ -13,7 +13,7 @@ To run the project locally, you must have the **.NET SDK (v7 or later)** install
 
 1.  **Clone the Repository:**
     ```bash
-    git clone [FRIEND'S_REPOSITORY_LINK_HERE]
+    git clone [https://github.com/Blasty18/FriendsProject.git]
     cd FriendsProject 
     # (or the name of the folder where you cloned the project)
     ```
